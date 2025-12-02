@@ -1,19 +1,39 @@
-package vo;
+package entities.empleados;
 
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class EmpleadoVO {
+@Entity
+public class EmpleadoVO implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id_empleado;
+
+    @Column(name = "nombre", nullable = false)
     private String nombre;
+
+    @Column(name = "puesto", nullable = false)
     private String puesto;
+
+    @Column(name = "tipo_jornada", nullable = false)
     private String tipo_jornada;
 
+    @Column(name = "email", nullable = false)
     private String email;
 
+    @Column(name = "telefono", nullable = false)
     private String telefono;
+
+    @Column(name = "fecha_contratacion", nullable = false)
     private LocalDate fecha_contratacion;
 
+    @Column(name = "salario_hora", nullable = false)
     private double salario_hora;
 
+    @Column(name = "activo", nullable = false)
     private int activo;
 
     public EmpleadoVO(String nombre, String puesto, String tipo_jornada, String email, String telefono, String fecha_contratacion, double salario_hora, int activo) {
@@ -26,8 +46,27 @@ public class EmpleadoVO {
         this.salario_hora = salario_hora;
         this.activo = activo;
     }
+    public EmpleadoVO(long id_empleado, String nombre, String puesto, String tipo_jornada, String email, String telefono, String fecha_contratacion, double salario_hora, int activo) {
+        this.id_empleado = id_empleado;
+        this.nombre = nombre;
+        this.puesto = puesto;
+        this.tipo_jornada = tipo_jornada;
+        this.email = email;
+        this.telefono = telefono;
+        this.fecha_contratacion = LocalDate.parse(fecha_contratacion);
+        this.salario_hora = salario_hora;
+        this.activo = activo;
+    }
 
-    public EmpleadoVO() {
+    protected EmpleadoVO() {
+    }
+
+    public long getId_empleado() {
+        return id_empleado;
+    }
+
+    public void setId_empleado(long id_empleado) {
+        this.id_empleado = id_empleado;
     }
 
     public String getNombre() {

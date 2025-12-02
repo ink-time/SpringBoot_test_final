@@ -1,16 +1,18 @@
-package dao;
-
-import vo.EmpleadoVO;
+package entities.empleados;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class EmpleadoDAO {
+        //    All this should go in repository files
+    // Controller = We have methods that the api will interpret and that will do the desired actions in the api,
+    // by accessing to the repository method with an object of repositoryEntity
     Scanner sc = new Scanner(System.in);
 
     public static boolean existsEmpleado(Connection conn, long id) {
@@ -31,13 +33,16 @@ public class EmpleadoDAO {
 
     }
 
-    public static void selectAllEmployees(Connection conn) {
-        String query = "SELECT nombre, puesto, tipo_jornada, email, telefono, " +
+    public static ArrayList<EmpleadoVO> selectAllEmployees(Connection conn) {
+        ArrayList<EmpleadoVO> employeeList = new ArrayList<EmpleadoVO>();
+        EmpleadoVO employee = new EmpleadoVO();
+        String query = "SELECT id_empleado, nombre, puesto, tipo_jornada, email, telefono, " +
                 "fecha_contratacion, salario_hora, activo FROM Empleados";
         try (PreparedStatement stmt = conn.prepareStatement(query)) {
 
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
+                    long id_empleado = rs.getLong("id_empleado");
                     String nombre = rs.getString("nombre");
                     String puesto = rs.getString("puesto");
                     String tipo_jornada = rs.getString("tipo_jornada");
@@ -46,16 +51,22 @@ public class EmpleadoDAO {
                     String fecha_contratacion = rs.getString("fecha_contratacion");
                     double salario_hora = rs.getDouble("salario_hora");
                     int activo = rs.getInt("activo");
-                    System.out.println("[" + " |Nombre: " + nombre + " | Puesto: " + puesto + " | tipo_jornada: " + tipo_jornada
-                            + " | email: " + email + " | telefono: " + telefono + " | fecha_contratacion: " + fecha_contratacion +
-                            " | salario_hora: " + salario_hora + " | activo: " + activo + " ]");
+
+                    employee = new EmpleadoVO(id_empleado, nombre, puesto, tipo_jornada, email, telefono, fecha_contratacion, salario_hora, activo);
+                    employeeList.add(employee);
+//                    System.out.println("[" + " |Nombre: " + nombre + " | Puesto: " + puesto + " | tipo_jornada: " + tipo_jornada
+//                            + " | email: " + email + " | telefono: " + telefono + " | fecha_contratacion: " + fecha_contratacion +
+//                            " | salario_hora: " + salario_hora + " | activo: " + activo + " ]");
                 }
+                return employeeList;
 
             } catch (SQLException e) {
                 e.printStackTrace();
+                return null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
@@ -120,7 +131,7 @@ public void createTable(String tableName, int colNum) {
 
 }
 
-public int insertEmpleado(Connection conn, EmpleadoVO newEmpleado){
+public static int insertEmpleado(Connection conn, EmpleadoVO newEmpleado){
         String query = "INSERT INTO Empleados (nombre, puesto, tipo_jornada, email, telefono," +
                 " fecha_contratacion, salario_hora, activo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = conn.prepareStatement(query)){
@@ -144,7 +155,7 @@ public int insertEmpleado(Connection conn, EmpleadoVO newEmpleado){
 
 }
 
-public int updateEmpleadoWIP(Connection conn, EmpleadoVO newEmpleado, String fieldsToUpdate, String condition){
+public static int updateEmpleadoWIP(Connection conn, EmpleadoVO newEmpleado, String fieldsToUpdate, String condition){
 //    System.out.print("Choose the condition, or the columns where the update statement will take place: ");
 //    String condition = sc.nextLine();
 //    System.out.print("Type the columns that you want to update, separated by a ',': ");
@@ -173,7 +184,7 @@ public int updateEmpleadoWIP(Connection conn, EmpleadoVO newEmpleado, String fie
     }
 }
 
-    public int updateEmpleadoSimple(Connection conn, long id, String newEmail){
+    public static int updateEmpleadoSimple(Connection conn, long id, String newEmail){
         String query = "UPDATE Empleados SET  email = ?, WHERE  id = ?";
         try (PreparedStatement stmt = conn.prepareStatement(query)){
 
@@ -191,7 +202,7 @@ public int updateEmpleadoWIP(Connection conn, EmpleadoVO newEmpleado, String fie
     }
 
 
-public int deleteEmpleado(Connection conn, long id){
+public static int deleteEmpleado(Connection conn, long id){
     String query = "DELETE FROM empleados WHERE id = ?";
     try (PreparedStatement stmt = conn.prepareStatement(query)){
         if(existsEmpleado(conn, id)){

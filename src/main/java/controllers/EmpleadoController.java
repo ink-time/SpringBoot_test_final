@@ -1,19 +1,18 @@
 package controllers;
 
-import entities.empleados.EmpleadoVO;
-import org.springframework.beans.factory.annotation.Autowired;
+import entities.EmpleadoVO;
 import org.springframework.web.bind.annotation.*;
 import services.EmpleadoService;
-import services.IEmpleadoService;
 
 import java.util.List;
+import java.util.Map;
 
 // This class will handle incoming HTTP requests
 
 // PUT is used to update a whole element, like a whole employee in the database, and not one of the attributes of an employee
 // PATCH is used to modify one attribute, or element from an employee, not the whole employee.
 @RestController
-@RequestMapping("/api/empleado")
+@RequestMapping("/EmpleadoVO")
 public class EmpleadoController {
     private final EmpleadoService empleadoService;
     public EmpleadoController(EmpleadoService empleadoService){
@@ -27,13 +26,49 @@ public class EmpleadoController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public EmpleadoVO getByID(@RequestBody long id){
+    public EmpleadoVO getByID(@PathVariable Long id){
         return empleadoService.getByID(id);
     }
 
+    @GetMapping("/{nombre}")
+    public List<EmpleadoVO> getByNombre(@RequestBody String nombre){
+        return empleadoService.getByName(nombre);
+    }
+    @GetMapping("/{puesto}")
+    public List<EmpleadoVO> getByPuesto(@RequestBody String puesto){
+        return empleadoService.getByPuesto(puesto);
+    }
+
+    @GetMapping("/{tipo_jornada}")
+    public List<EmpleadoVO> getByTipo_jornada(@RequestBody String jornada){
+        return empleadoService.getByTipo_jornada(jornada);
+    }
+
+
     @PostMapping
     public EmpleadoVO create(@RequestBody EmpleadoVO empleado){
-        return empleadoService.insert();
+        if(getByID(empleado.getId_empleado()) == null){
+            return empleadoService.insert(empleado);
+        }else{
+            System.err.println("The employee already exists!");
+            return null;
+        }
+
+    }
+
+    @PutMapping("/{id}")
+    public EmpleadoVO updateByID(@PathVariable Long id, EmpleadoVO newData){
+        return empleadoService.updateByID(id, newData);
+    }
+
+    @PatchMapping("/{id}")
+    public EmpleadoVO patch(@PathVariable Long id, @RequestBody Map<String, Object> changes){
+        return empleadoService.patch(id, changes);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        empleadoService.delete(id);
     }
 
 

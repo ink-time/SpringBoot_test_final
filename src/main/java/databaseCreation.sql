@@ -41,7 +41,7 @@ CREATE TABLE Horarios_Semanales_Empleados (
     hora_entrada TIME NOT NULL,
     hora_salida TIME NOT NULL,
     horas_dia DECIMAL(4,2) NOT NULL,
-    CONSTRAINT fk_empleados_1 FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado)
+    CONSTRAINT fk_empleados_1 FOREIGN KEY (id_empleado) REFERENCES cine (id_empleado)
 )Engine = InnoDB default charset = utf8mb4 collate = utf8mb4_spanish2_ci;
 
 CREATE TABLE Registro_Horas_Mensual (
@@ -51,7 +51,7 @@ CREATE TABLE Registro_Horas_Mensual (
     anyo INTEGER NOT NULL,
     horas_totales DECIMAL(6,2) NOT NULL,
     horas_extra DECIMAL(6,2) NOT NULL,
-    CONSTRAINT fk_empleados_2 FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado)
+    CONSTRAINT fk_empleados_2 FOREIGN KEY (id_empleado) REFERENCES cine (id_empleado)
 )Engine = InnoDB default charset = utf8mb4 collate = utf8mb4_spanish2_ci;
 
 -- M:M peliculas -> Salas Relation table
@@ -75,7 +75,7 @@ CREATE TABLE Asignaciones_Empleados_Proyecciones (
     id_empleado BIGINT UNSIGNED NOT NULL,
     rol VARCHAR(50),
     CONSTRAINT fk_proyecciones_2 FOREIGN KEY (id_proyeccion) REFERENCES proyecciones (id_proyeccion),
-    CONSTRAINT fk_empleados_3 FOREIGN KEY (id_empleado) REFERENCES empleados (id_empleado)
+    CONSTRAINT fk_empleados_3 FOREIGN KEY (id_empleado) REFERENCES cine (id_empleado)
 )Engine = InnoDB default charset = utf8mb4 collate = utf8mb4_spanish2_ci;
 
 
@@ -251,7 +251,7 @@ INSERT INTO Horarios_Semanales_Empleados (id_empleado, dia_semana, hora_entrada,
 --    anyo INTEGER NOT NULL,
 --    horas_totales DECIMAL(6,2) NOT NULL,
 --    horas_extra DECIMAL(6,2) NULL,
---    CONSTRAINT fk_empleados_2 FOREIGN KEY (id_empledo) REFERENCES empleados (id_empleados)
+--    CONSTRAINT fk_empleados_2 FOREIGN KEY (id_empledo) REFERENCES cine (id_empleados)
 --)Engine = InnoDB default charset = utf8mb4 collate = utf8mb4_spanish2_ci;
 
 

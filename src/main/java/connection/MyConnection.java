@@ -12,7 +12,7 @@ public class MyConnection {
 //            "jdbc:mysql://localhost:3307/pascual_mercadona_db"
             String username = "root";
             String password = "";
-            // returns the connection to the database
+            // returns the com.connection to the database
             return DriverManager.getConnection(URL, username, password);
         } catch (SQLException e) {
             throw e;

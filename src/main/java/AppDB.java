@@ -1,12 +1,12 @@
 import connection.MyConnection;
-import entities.empleados.EmpleadoDAO;
-import entities.empleados.EmpleadoVO;
+import entities.EmpleadoDAO;
+import entities.EmpleadoVO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import static entities.empleados.EmpleadoDAO.selectAllEmployees;
+import static entities.EmpleadoDAO.selectAllEmployees;
 
 
 public class AppDB {
@@ -16,7 +16,7 @@ public class AppDB {
         conn = MyConnection.getConnection();
         if(conn!=null) {
             Scanner scan = new Scanner (System.in);
-            // All the stuff that happens if the connection is successful and if there are no errors
+            // All the stuff that happens if the com.connection is successful and if there are no errors
             System.out.println("Connected");
 
             EmpleadoVO employee1 = new EmpleadoVO("David", "Jefassso", "Jornada Completa", "david.guti@gmail.com", "679290198", "2025-11-21", 77.7, 1);
@@ -40,12 +40,12 @@ public class AppDB {
         if(conn!=null){
             try {
                 conn.close();
-                System.out.print("The database connection has been closed.");
+                System.out.print("The database com.connection has been closed.");
             } catch (SQLException e) {
-                System.out.print("The database connection was not closed properly.");
+                System.out.print("The database com.connection was not closed properly.");
 //                throw new RuntimeException(e);
                 e.printStackTrace();
-                //The connection cannot be closed
+                //The com.connection cannot be closed
             }
         }
     }

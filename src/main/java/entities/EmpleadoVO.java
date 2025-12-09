@@ -1,4 +1,4 @@
-package entities.empleados;
+package entities;
 
 import jakarta.persistence.*;
 
@@ -104,6 +104,7 @@ public class EmpleadoVO implements Serializable {
     public String getTelefono() {
         return telefono;
     }
+
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;

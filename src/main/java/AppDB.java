@@ -1,12 +1,12 @@
-import connection.MyConnection;
-import entities.EmpleadoDAO;
-import entities.EmpleadoVO;
+import com.connection.MyConnection;
+import com.entities.EmpleadoDAO;
+import com.entities.EmpleadoVO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import static entities.EmpleadoDAO.selectAllEmployees;
+import static com.entities.EmpleadoDAO.selectAllEmployees;
 
 
 public class AppDB {

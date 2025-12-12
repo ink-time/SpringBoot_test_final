@@ -1,8 +1,8 @@
-package services;
+package com.services;
 
-import entities.EmpleadoVO;
+import com.entities.EmpleadoVO;
 import org.springframework.stereotype.Service;
-import repositories.IEmpleadoRepository;
+import com.repositories.IEmpleadoRepository;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +22,7 @@ public class EmpleadoService {
         return empleadoRepository.findAll();
     }
 
-    public List<EmpleadoVO> getByName(String nombre){
+    public List<EmpleadoVO> getByNombre(String nombre){
         return empleadoRepository.findByNombre(nombre);
     }
 
@@ -30,11 +30,11 @@ public class EmpleadoService {
         return empleadoRepository.findByPuesto(puesto);
     }
 
-    public List<EmpleadoVO> getByTipo_jornada(String tipo_Jornada){
-        return empleadoRepository.findByTipo_jornada(tipo_Jornada);
-    }
+//    public List<EmpleadoVO> getByTipo_jornada(String tipo_Jornada){
+//        return empleadoRepository.findByTipo_jornada(tipo_Jornada);
+//    }
 
-    public EmpleadoVO getByID(long id){
+    public EmpleadoVO getByID(Long id){
             return empleadoRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
 
 
@@ -53,6 +53,7 @@ public class EmpleadoService {
         empleado.setPuesto(datosNuevos.getPuesto());
         empleado.setTelefono(datosNuevos.getTelefono());
         empleado.setSalario_hora(datosNuevos.getSalario_hora());
+        empleado.setFecha_contratacion(datosNuevos.getFecha_contratacion());
         empleado.setActivo(datosNuevos.getActivo());
         empleado.setTipo_jornada(datosNuevos.getTipo_jornada());
         return empleadoRepository.save(empleado);
@@ -65,22 +66,25 @@ public class EmpleadoService {
             empleado.setNombre((String) changes.get("nombre"));
         }
         if(changes.containsKey("email")){
-            empleado.setNombre((String) changes.get("email"));
+            empleado.setEmail((String) changes.get("email"));
         }
         if(changes.containsKey("puesto")){
-            empleado.setNombre((String) changes.get("puesto"));
+            empleado.setPuesto((String) changes.get("puesto"));
         }
         if(changes.containsKey("telefono")){
-            empleado.setNombre((String) changes.get("telefono"));
+            empleado.setTelefono((String) changes.get("telefono"));
+        }
+        if(changes.containsKey("fecha_contratacion")){
+            empleado.setFecha_contratacion((String) changes.get("fecha_contratacion"));
         }
         if(changes.containsKey("salario_hora")){
-            empleado.setNombre((String) changes.get("salario_hora"));
+            empleado.setSalario_hora((double) changes.get("salario_hora"));
         }
         if(changes.containsKey("activo")){
-            empleado.setNombre((String) changes.get("nombre"));
+            empleado.setActivo((int) changes.get("nombre"));
         }
         if(changes.containsKey("tipo_jornada")){
-            empleado.setNombre((String) changes.get("tipo_jornada"));
+            empleado.setTipo_jornada((String) changes.get("tipo_jornada"));
         }
         return empleadoRepository.save(empleado);
 

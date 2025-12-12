@@ -1,8 +1,8 @@
-package controllers;
+package com.controllers;
 
-import entities.EmpleadoVO;
+import com.entities.EmpleadoVO;
 import org.springframework.web.bind.annotation.*;
-import services.EmpleadoService;
+import com.services.EmpleadoService;
 
 import java.util.List;
 import java.util.Map;
@@ -24,25 +24,26 @@ public class EmpleadoController {
     return empleadoService.getAll();
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
+    @GetMapping(value="/{id}")
+    //@RequestMapping(value="/{id}", method = RequestMethod.GET)
+    //@ResponseBody
     public EmpleadoVO getByID(@PathVariable Long id){
         return empleadoService.getByID(id);
     }
 
-    @GetMapping("/{nombre}")
+    @GetMapping("Nombre/{nombre}") //If these have the same structure as the idGetMapping, it will not work, because both mappings have the same endpoint for springboot
     public List<EmpleadoVO> getByNombre(@RequestBody String nombre){
-        return empleadoService.getByName(nombre);
+        return empleadoService.getByNombre(nombre);
     }
-    @GetMapping("/{puesto}")
+    @GetMapping("Puesto/puesto/{puesto}")
     public List<EmpleadoVO> getByPuesto(@RequestBody String puesto){
         return empleadoService.getByPuesto(puesto);
     }
 
-    @GetMapping("/{tipo_jornada}")
-    public List<EmpleadoVO> getByTipo_jornada(@RequestBody String jornada){
-        return empleadoService.getByTipo_jornada(jornada);
-    }
+//    @GetMapping("/{tipo_jornada}")
+//    public List<EmpleadoVO> getByTipo_jornada(@RequestBody String jornada){
+//        return empleadoService.getByTipo_jornada(jornada);
+//    }
 
 
     @PostMapping

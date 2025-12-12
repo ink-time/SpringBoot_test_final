@@ -1,6 +1,6 @@
-package repositories;
+package com.repositories;
 
-import entities.EmpleadoVO;
+import com.entities.EmpleadoVO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +21,7 @@ List<EmpleadoVO> findByNombre(String nombre);
 
 List<EmpleadoVO> findByPuesto(String puesto);
 
-List<EmpleadoVO> findByTipo_jornada(String tipo_jornada);
+//List<EmpleadoVO> findByTipo_jornada(String tipo_jornada);
 
 /*
 // BÚSQUEDAS BÁSICAS

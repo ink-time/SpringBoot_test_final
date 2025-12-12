@@ -1,4 +1,4 @@
-package entities;
+package com.entities;
 
 import jakarta.persistence.*;
 
@@ -6,11 +6,12 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-public class EmpleadoVO implements Serializable {
+@Table(name= "empleados")
+public class EmpleadoVO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id_empleado;
+    private Long id_empleado;
 
     @Column(name = "nombre", nullable = false)
     private String nombre;
@@ -46,7 +47,7 @@ public class EmpleadoVO implements Serializable {
         this.salario_hora = salario_hora;
         this.activo = activo;
     }
-    public EmpleadoVO(long id_empleado, String nombre, String puesto, String tipo_jornada, String email, String telefono, String fecha_contratacion, double salario_hora, int activo) {
+    public EmpleadoVO(Long id_empleado, String nombre, String puesto, String tipo_jornada, String email, String telefono, String fecha_contratacion, double salario_hora, int activo) {
         this.id_empleado = id_empleado;
         this.nombre = nombre;
         this.puesto = puesto;
@@ -61,11 +62,11 @@ public class EmpleadoVO implements Serializable {
     protected EmpleadoVO() {
     }
 
-    public long getId_empleado() {
+    public Long getId_empleado() {
         return id_empleado;
     }
 
-    public void setId_empleado(long id_empleado) {
+    public void setId_empleado(Long id_empleado) {
         this.id_empleado = id_empleado;
     }
 
@@ -137,7 +138,8 @@ public class EmpleadoVO implements Serializable {
     @Override
     public String toString() {
         return "EmpleadoVO{" +
-                "nombre='" + nombre + '\'' +
+                "id_empleado=" + id_empleado +
+                ", nombre='" + nombre + '\'' +
                 ", puesto='" + puesto + '\'' +
                 ", tipo_jornada='" + tipo_jornada + '\'' +
                 ", email='" + email + '\'' +

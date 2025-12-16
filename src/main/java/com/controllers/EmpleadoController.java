@@ -35,7 +35,7 @@ public class EmpleadoController {
     public List<EmpleadoVO> getByNombre(@RequestBody String nombre){
         return empleadoService.getByNombre(nombre);
     }
-    @GetMapping("Puesto/puesto/{puesto}")
+    @GetMapping("Puesto/{puesto}")
     public List<EmpleadoVO> getByPuesto(@RequestBody String puesto){
         return empleadoService.getByPuesto(puesto);
     }
@@ -48,26 +48,30 @@ public class EmpleadoController {
 
     @PostMapping
     public EmpleadoVO create(@RequestBody EmpleadoVO empleado){
-        if(getByID(empleado.getId_empleado()) == null){
+            return empleadoService.insert(empleado);
+            // So the following code doesn't work, and it doesn't make sense. Since when doing a POST in Swagger,
+            // with a database with serial IDs, we should not specify the id.
+            /*
+            if(getByID(empleado.getId_empleado()) == null){
             return empleadoService.insert(empleado);
         }else{
             System.err.println("The employee already exists!");
             return null;
         }
-
+             */
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/put/{id}")
     public EmpleadoVO updateByID(@PathVariable Long id, EmpleadoVO newData){
         return empleadoService.updateByID(id, newData);
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/patch/{id}")
     public EmpleadoVO patch(@PathVariable Long id, @RequestBody Map<String, Object> changes){
         return empleadoService.patch(id, changes);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}") // This didn't work without changing the mapping to what it is now (it used to be: /{id})
     public void delete(@PathVariable Long id){
         empleadoService.delete(id);
     }

@@ -1,14 +1,21 @@
 package com.services;
 
 import com.entities.EmpleadoVO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import com.repositories.IEmpleadoRepository;
+
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.SimpleFormatter;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class EmpleadoService {
+    private static final Logger log = LoggerFactory.getLogger(EmpleadoService.class);
     private final IEmpleadoRepository empleadoRepository;
     // Here we have the logic, so the way we want the methods to work.
     // We can also have all the conditions that we use to make the methods more solid, and harder to brak in production.
@@ -64,6 +71,7 @@ public class EmpleadoService {
         EmpleadoVO empleado = getByID(id);
         if(changes.containsKey("nombre")){
             empleado.setNombre((String) changes.get("nombre"));
+            // I should use a LOGGER HERE
         }
         if(changes.containsKey("email")){
             empleado.setEmail((String) changes.get("email"));
@@ -86,6 +94,7 @@ public class EmpleadoService {
         if(changes.containsKey("tipo_jornada")){
             empleado.setTipo_jornada((String) changes.get("tipo_jornada"));
         }
+
         return empleadoRepository.save(empleado);
 
     }

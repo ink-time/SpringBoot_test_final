@@ -1,4 +1,4 @@
-package com.repositories;
+package com.repositories.jpa;
 
 import com.entities.EmpleadoVO;
 import org.springframework.data.jpa.repository.JpaRepository;

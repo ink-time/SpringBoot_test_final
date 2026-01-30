@@ -1,4 +1,4 @@
-package com.controllers;
+package com.controllers.jpa;
 
 import com.entities.EmpleadoVO;
 import org.springframework.web.bind.annotation.*;

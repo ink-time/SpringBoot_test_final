@@ -1,4 +1,4 @@
-import com.connection.MyConnection;
+import com.connection.MyConnectionMySQL;
 import com.entities.EmpleadoDAO;
 import com.entities.EmpleadoVO;
 
@@ -13,7 +13,7 @@ public class AppDB {
     public static void main(String[] args) {
     Connection conn = null;
     try {
-        conn = MyConnection.getConnection();
+        conn = MyConnectionMySQL.getConnection();
         if(conn!=null) {
             Scanner scan = new Scanner (System.in);
             // All the stuff that happens if the com.connection is successful and if there are no errors

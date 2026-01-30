@@ -1,11 +1,13 @@
 package com.entities;
 
 import jakarta.persistence.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
+@Document(collection= "empleados") // I think that having this annotation is necessary if I want to use this class for Mongo and for mySQL at the same time
 @Table(name= "empleados")
 public class EmpleadoVO {
 

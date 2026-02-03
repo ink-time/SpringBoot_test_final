@@ -67,7 +67,7 @@ public class EmpleadoService {
         EmpleadoVO empleado = getByID(id);
         if(changes.containsKey("nombre")){
             empleado.setNombre((String) changes.get("nombre"));
-            // I should use a LOGGER HERE
+
         }
         if(changes.containsKey("email")){
             empleado.setEmail((String) changes.get("email"));

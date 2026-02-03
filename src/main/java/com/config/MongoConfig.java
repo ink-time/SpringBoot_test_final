@@ -11,15 +11,19 @@ import java.util.List;
 
 
 @Configuration
-@EnableMongoRepositories(basePackages = "com.repositories.mongo")
+@EnableMongoRepositories(basePackages = "com.repositories.mongo") // This is to specify where the repositories Mongo has to search for will be. So it doesn't confuse them with the mySQL ones
 public class MongoConfig {
     @Autowired
-    private MongoTemplate template;
+    private MongoTemplate mongoTemplate;
+    @Autowired
+    private org.springframework.core.env.Environment env;
 
-    @PostConstruct
+    @PostConstruct //This executes automatically when starting the app
   public void initialize(){
-        System.out.println("Connecting to Mongo database: " + template.getDb().getName());
-      try{
+        System.out.println("Connecting to Mongo database: " + mongoTemplate.getDb().getName());
+        System.out.println("Property URI: " + env.getProperty("spring.data.mongodb.uri"));
+        System.out.println("Property Database: " + env.getProperty("spring.data.mongodb.database"));
+        try{
           List<String> collections = Arrays.asList(
                   "empleados",
                   "entradas",
@@ -27,8 +31,8 @@ public class MongoConfig {
           );
 
           for(String collection: collections){
-              if(!template.collectionExists(collection)){
-                  template.createCollection(collection);
+              if(!mongoTemplate.collectionExists(collection)){
+                  mongoTemplate.createCollection(collection);
                   System.out.println("Collection created succcesfully");
 
               }else{

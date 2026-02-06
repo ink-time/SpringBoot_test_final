@@ -10,7 +10,6 @@ import com.mongodb.client.model.Filters;
 import org.bson.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import com.repositories.jpa.IEmpleadoRepository;
@@ -127,14 +126,17 @@ public class EmpleadoService {
     public void delete(Long id){
         empleadoRepository.deleteById(id);
     }
-    @Autowired
-    static MongoTemplate template;
+//    private static final String URL_MONGO = "mongodb://localhost:27017";
+//    private static final String DB_NAME = "cinesdb";
+
     // Mongo Static methods, to use only on the logic related to MongoDB in the methods above
     private static MongoCollection<Document> getCollection() {
         try{
+//            MongoClient client = MongoClients.create(URL_MONGO);
+//            return client.getDatabase(DB_NAME);
+
             MongoConfig mongoConf= new MongoConfig();
-            MongoTemplate database = template;
-            System.out.println();
+            MongoTemplate database = mongoConf.getMongoTemplate();
             return database.getDb().getCollection("empleados");
         } catch (Exception e) {
             throw new RuntimeException("Error conectando a MongoDB", e);

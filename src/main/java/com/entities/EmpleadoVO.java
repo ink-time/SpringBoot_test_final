@@ -9,7 +9,8 @@ import java.time.LocalDate;
 @Entity
 @Document(collection= "empleados") // I think that having this annotation is necessary if I want to use this class for Mongo and for mySQL at the same time
 @Table(name= "empleados")
-public class EmpleadoVO {
+public class EmpleadoVO implements Serializable{
+    // I am pretty sure the Serializable implementation is not necessary
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

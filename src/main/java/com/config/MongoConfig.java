@@ -26,7 +26,7 @@ public class MongoConfig {
         try{
             // A list with all the tables that we have in the relational database.
             // This works, but I would like to go check all the tables that exist in the mySQL database with code, and get those names into a List automatically.
-            // That way this woorks even if we create new tables in the mySQL table for any reason.
+            // That way this works even if we create new tables in the mySQL table for any reason.
           List<String> collections = Arrays.asList(
                   "empleados",
                   "entradas",
@@ -56,4 +56,11 @@ public class MongoConfig {
       }
   }
 
+    public MongoTemplate getMongoTemplate() {
+        return mongoTemplate;
+    }
+
+    public void setMongoTemplate(MongoTemplate mongoTemplate) {
+        this.mongoTemplate = mongoTemplate;
+    }
 }
